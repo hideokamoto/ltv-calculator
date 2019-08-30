@@ -15,6 +15,13 @@ LTV / 平均継続期間 / ARPU(Average Revenue Per User)を計算するライ�
 ## API Docs
 https://hideokamoto.github.io/ltv-calculator/
 
+## Install
+https://www.npmjs.com/package/ltv-calculator
+
+```bash
+$ npm i -S ltv-calculator
+```
+
 ## Usaage
 ### ARPU
 
@@ -102,8 +109,8 @@ expect(arpu).toEqual(100)
 
 ```bash
 // clone
-$ git clone git@github.com:hideokamoto/sequential-promise.git
-$ cd sequential-promise
+$ git clone git@github.com:hideokamoto/ltv-calculator.git
+$ cd ltv-calculator
 
 // setup
 $ yarn
