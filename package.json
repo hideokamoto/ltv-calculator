@@ -1,6 +1,6 @@
 {
   "name": "ltv-calculator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Simply LTV / ARPU / Average Duration calcurator",
   "main": "dist/index.js",
   "scripts": {
