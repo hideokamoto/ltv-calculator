@@ -111,3 +111,4 @@ export class LTVCalculator {
     return this.ltv
   }
 }
+export default LTVCalculator
