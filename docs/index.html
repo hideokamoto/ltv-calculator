@@ -67,36 +67,48 @@
 				<a href="#ltv-calculator" id="ltv-calculator" style="color: inherit; text-decoration: none;">
 					<h1>LTV calculator</h1>
 				</a>
+				<p>Simply calculator to get the following properties.</p>
+				<ul>
+					<li>LTV</li>
+					<li>Average duration</li>
+					<li>ARPU (Average Revenue Per User)</li>
+				</ul>
 				<p>LTV / 平均継続期間 / ARPU(Average Revenue Per User)を計算するライブラリです。</p>
-				<a href="#計算式参考" id="計算式参考" style="color: inherit; text-decoration: none;">
-					<h2>計算式参考</h2>
+				<a href="#motivation-blog-post-計算式参考" id="motivation-blog-post-計算式参考" style="color: inherit; text-decoration: none;">
+					<h2>Motivation blog post: 計算式参考</h2>
 				</a>
 				<p>ユーザの平均継続期間が「1/解約率」で求められることの数学的証明:<a href="https://migi.hatenablog.com/entry/churn-formula">https://migi.hatenablog.com/entry/churn-formula</a></p>
 				<a href="#api-docs" id="api-docs" style="color: inherit; text-decoration: none;">
 					<h2>API Docs</h2>
 				</a>
 				<p><a href="https://hideokamoto.github.io/ltv-calculator/">https://hideokamoto.github.io/ltv-calculator/</a></p>
-				<a href="#arpuの計算" id="arpuの計算" style="color: inherit; text-decoration: none;">
-					<h2>ARPUの計算</h2>
+				<a href="#usaage" id="usaage" style="color: inherit; text-decoration: none;">
+					<h2>Usaage</h2>
+				</a>
+				<a href="#arpu" id="arpu" style="color: inherit; text-decoration: none;">
+					<h3>ARPU</h3>
 				</a>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> LTVCalculator <span class="hljs-keyword">from</span> <span class="hljs-string">'ltv-calculator'</span>
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> LTVCalculator()
 
 <span class="hljs-comment">// 売り上げが100単位・ユーザー数が10単位の時、ARPUは10単位</span>
+<span class="hljs-comment">// Sales is 100 unit and user is 10, ARPU is 10 unit</span>
 <span class="hljs-keyword">const</span> arpu = client.calcARPU(<span class="hljs-number">100</span>, <span class="hljs-number">10</span>).getARPU()
 expect(arpu).toEqual(<span class="hljs-number">10</span>)
 
 <span class="hljs-comment">// ショートハンドル</span>
+<span class="hljs-comment">// short handle</span>
 <span class="hljs-keyword">const</span> arpu = client.getARPU(<span class="hljs-number">100</span>, <span class="hljs-number">10</span>)
 expect(arpu).toEqual(<span class="hljs-number">10</span>)</code></pre>
-				<a href="#解約率からの平均継続期間の計算" id="解約率からの平均継続期間の計算" style="color: inherit; text-decoration: none;">
-					<h2>解約率からの平均継続期間の計算</h2>
+				<a href="#average-duration--解約率からの平均継続期間の計算" id="average-duration--解約率からの平均継続期間の計算" style="color: inherit; text-decoration: none;">
+					<h2>Average Duration / 解約率からの平均継続期間の計算</h2>
 				</a>
-				<p>1 / 解約率で計算。</p>
+				<p>1 / churn rate (1 / 解約率) = Average Duration (平均継続期間)</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> LTVCalculator <span class="hljs-keyword">from</span> <span class="hljs-string">'ltv-calculator'</span>
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> LTVCalculator()
 
 <span class="hljs-comment">// 解約率10%の時、平均継続期間は10単位 </span>
+<span class="hljs-comment">// Churn rate is 10% -&gt; Average duration is 10 unit</span>
 <span class="hljs-keyword">const</span> averageDuration = client
   .calcAverageDurationByChurnRate(<span class="hljs-number">10</span>)
   .getAverageDurationByChurnRate()
@@ -108,6 +120,7 @@ expect(averageDuration).toEqual(<span class="hljs-number">10</span>)
 expect(averageDuration).toEqual(<span class="hljs-number">10</span>)
 
 <span class="hljs-comment">// 解約率10%の時、平均継続期間は10単位（単位を明示的に設定する）</span>
+<span class="hljs-comment">// Churn rate is 10% -&gt; Average duration is 10 unit</span>
 <span class="hljs-keyword">const</span> averageDuration = client
   .calcAverageDurationByChurnRate(<span class="hljs-number">10</span>, <span class="hljs-string">'percentage'</span>)
   .getAverageDurationByChurnRate()
@@ -119,6 +132,7 @@ expect(averageDuration).toEqual(<span class="hljs-number">10</span>)
 expect(averageDuration).toEqual(<span class="hljs-number">10</span>)
 
 <span class="hljs-comment">// 解約率0.1(10%)の時、平均継続期間は10単位（パーセントではなく数値でも指定できる）</span>
+<span class="hljs-comment">// Churn rate is 0.1(10%) -&gt; Average duration is 10 unit</span>
 <span class="hljs-keyword">const</span> averageDuration = client
   .calcAverageDurationByChurnRate(<span class="hljs-number">0.1</span>, <span class="hljs-string">'number'</span>)
   .getAverageDurationByChurnRate()
@@ -132,9 +146,14 @@ expect(averageDuration).toEqual(<span class="hljs-number">10</span>)</code></pre
 					<h2>LTVの計算</h2>
 				</a>
 				<p>平均継続期間 * ARPUで計算する。</p>
-				<pre><code class="language-typescript"><span class="hljs-comment">// 売り上げが100単位・ユーザー数が10単位の時、ARPUは10単位</span>
-<span class="hljs-comment">// 解約率10%の時、平均継続期間は10単位 </span>
-<span class="hljs-comment">// LTV (平均継続期間 * ARPU)は 10 * 10 = 100単位</span>
+				<pre><code class="language-typescript"><span class="hljs-comment">// 1: 売り上げが100単位・ユーザー数が10単位の時、ARPUは10単位</span>
+<span class="hljs-comment">//    Sales is 100 unit and user is 10, ARPU is 10 unit</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// 2: 解約率10%の時、平均継続期間は10単位 </span>
+<span class="hljs-comment">//    Churn rate is 10% -&gt; Average duration is 10 unit</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// 3: LTV (平均継続期間 * ARPU)は 10 * 10 = 100単位</span>
+<span class="hljs-comment">//    LTV (Average Duration * ARPU) is 10 * 10 = 100 unit</span>
 <span class="hljs-keyword">const</span> arpu = client.calcARPU(<span class="hljs-number">100</span>, <span class="hljs-number">10</span>)
     .calcAverageDurationByChurnRate(<span class="hljs-number">10</span>)
     .getLTV()
