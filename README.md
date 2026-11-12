@@ -212,22 +212,33 @@ expect(arpu).toEqual(100)
 $ git clone git@github.com:hideokamoto/ltv-calculator.git
 $ cd ltv-calculator
 
-// setup
-$ yarn
+// setup (pnpm: see "packageManager" in package.json)
+$ pnpm install
 
 // Unit test
-$ yarn test
+$ pnpm test
 or
-$ yarn run test:watch
+$ pnpm run test:watch
 
 // Lint
-$ yarn run lint
+$ pnpm run lint
 or
-$ yarn run lint --fix
+$ pnpm run lint:fix
+
+// Type check
+$ pnpm run typecheck
 
 // Build
-$ yarn run build
+$ pnpm run build
 
 // Rebuild docs
-$ yarn run doc
+$ pnpm run doc
 ```
+
+### Release
+
+Releases are automated. Merging to `main` runs semantic-release on CircleCI
+(`workflows/publish/npm-polyrepo-semantic-release.yaml` in `hideokamoto/circleci-configurations`).
+It decides the next version from [Conventional Commits](https://www.conventionalcommits.org/)
+since the last `v*` tag, pushes the tag, publishes to npm via OIDC trusted publishing,
+and creates the GitHub Release. Do not bump `version` in `package.json` by hand.
